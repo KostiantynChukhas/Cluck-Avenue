@@ -1,0 +1,110 @@
+workflows:
+  ios-automatic-code-signing:
+    name: iOS automatic code signing
+    max_build_duration: 120
+    instance_type: mac_mini_m2
+
+    integrations:
+      app_store_connect: ChickenMy
+
+    environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.clockbobyvalentine
+      vars:
+        BUNDLE_ID: "com.clockbobyvalentine"
+        XCODE_PROJECT: "Cluck Avenue.xcodeproj"
+        XCODE_SCHEME: "Cluck Avenue"
+        APP_STORE_APPLE_ID: 6760406951
+      xcode: 26.0
+
+    triggering:
+      events:
+        - push
+        - tag
+        - pull_request
+      branch_patterns:
+        - pattern: "main"
+          include: true
+          source: true
+
+    scripts:
+      - name: Verify Xcode project
+        script: |
+          echo "Checking project structure..."
+          ls -la "$CM_BUILD_DIR"
+          
+      - name: Check Xcode version
+        script: |
+          xcodebuild -version
+          xcode-select -p
+
+      - name: Disable strict concurrency checking
+        script: |
+          sed -i '' 's/SWIFT_STRICT_CONCURRENCY = complete/SWIFT_STRICT_CONCURRENCY = minimal/g' "$CM_BUILD_DIR/$XCODE_PROJECT/project.pbxproj" || true
+
+      - name: Clean build artifacts
+        script: |
+          cd $CM_BUILD_DIR
+          xcodebuild clean -project "$XCODE_PROJECT" -scheme "$XCODE_SCHEME" || true
+          rm -rf ~/Library/Developer/Xcode/DerivedData/* || true
+
+      - name: Diagnose project settings
+        script: |
+          echo "=== Checking build settings ==="
+          xcodebuild -project "$CM_BUILD_DIR/$XCODE_PROJECT" -scheme "$XCODE_SCHEME" -showBuildSettings | grep -E "CODE_SIGN|DEVELOPMENT_TEAM|BUNDLE_IDENTIFIER|PROVISIONING_PROFILE"
+
+      - name: Set up provisioning profiles settings on Xcode project
+        script: xcode-project use-profiles
+
+      - name: Verify provisioning profiles
+        script: |
+          echo "=== Installed provisioning profiles ==="
+          ls -la ~/Library/MobileDevice/Provisioning\ Profiles/ || echo "No profiles found"
+          
+      - name: Increment build number
+        script: |
+          cd $CM_BUILD_DIR
+          LATEST_BUILD_NUMBER=$(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID")
+          echo "Latest build number: $LATEST_BUILD_NUMBER"
+          agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
+          NEW_BUILD=$(agvtool what-version -terse)
+          echo "New build number: $NEW_BUILD"
+
+      - name: Build ipa for distribution
+        script: |
+          echo "Building project..."
+          xcode-project build-ipa \
+            --project "$CM_BUILD_DIR/$XCODE_PROJECT" \
+            --scheme "$XCODE_SCHEME" \
+            --config "Release"
+
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+
+    cache:
+      cache_paths:
+        - $HOME/Library/Developer/Xcode/DerivedData
+
+    publishing:
+      email:
+        recipients:
+          - konstchickoneapps@gmail.com
+        notify:
+          success: true
+          failure: true
+
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+        submit_to_app_store: false
+
+      slack:
+        channel: "#ce-builds"
+        notify_on_build_start: true
+        notify:
+          success: true
+          failure: true

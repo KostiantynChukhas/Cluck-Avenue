@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "hen_legendary_solstice.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

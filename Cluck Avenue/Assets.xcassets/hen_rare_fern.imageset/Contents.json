@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "hen_rare_fern.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "hen_epic_thistle.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
