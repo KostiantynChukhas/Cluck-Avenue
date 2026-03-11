@@ -15,7 +15,7 @@ workflows:
         BUNDLE_ID: "com.clockbobyvalentine"
         XCODE_PROJECT: "Cluck Avenue.xcodeproj"
         XCODE_SCHEME: "Cluck Avenue"
-        APP_STORE_APPLE_ID: 6760406951
+        APP_STORE_APPLE_ID: 6760432920
       xcode: 26.0
 
     triggering:
