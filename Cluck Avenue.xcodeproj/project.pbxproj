@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E4D00FED2F7C5DD300A9EBA0 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = E4D00FEC2F7C5DD300A9EBA0 /* FirebaseAnalytics */; };
 		E4D00FEF2F7C5DD300A9EBA0 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = E4D00FEE2F7C5DD300A9EBA0 /* FirebaseRemoteConfig */; };
+		E4D0169A2F7C65FF00A9EBA0 /* AppsFlyerLib in Frameworks */ = {isa = PBXBuildFile; productRef = E4D016992F7C65FF00A9EBA0 /* AppsFlyerLib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 			files = (
 				E4D00FED2F7C5DD300A9EBA0 /* FirebaseAnalytics in Frameworks */,
 				E4D00FEF2F7C5DD300A9EBA0 /* FirebaseRemoteConfig in Frameworks */,
+				E4D0169A2F7C65FF00A9EBA0 /* AppsFlyerLib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +89,7 @@
 			packageProductDependencies = (
 				E4D00FEC2F7C5DD300A9EBA0 /* FirebaseAnalytics */,
 				E4D00FEE2F7C5DD300A9EBA0 /* FirebaseRemoteConfig */,
+				E4D016992F7C65FF00A9EBA0 /* AppsFlyerLib */,
 			);
 			productName = "Cluck Avenue";
 			productReference = E4AA53422F6206BD00260E2C /* Cluck Avenue.app */;
@@ -118,6 +121,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				E4D00FEB2F7C5DD300A9EBA0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				E4D016982F7C65FF00A9EBA0 /* XCRemoteSwiftPackageReference "AppsFlyerFramework" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = E4AA53432F6206BD00260E2C /* Products */;
@@ -164,8 +168,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -203,8 +207,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -381,6 +385,14 @@
 				minimumVersion = 12.11.0;
 			};
 		};
+		E4D016982F7C65FF00A9EBA0 /* XCRemoteSwiftPackageReference "AppsFlyerFramework" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppsFlyerSDK/AppsFlyerFramework";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.17.9;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -393,6 +405,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E4D00FEB2F7C5DD300A9EBA0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseRemoteConfig;
+		};
+		E4D016992F7C65FF00A9EBA0 /* AppsFlyerLib */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E4D016982F7C65FF00A9EBA0 /* XCRemoteSwiftPackageReference "AppsFlyerFramework" */;
+			productName = AppsFlyerLib;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

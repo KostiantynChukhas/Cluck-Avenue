@@ -65,6 +65,8 @@ class DeepLinkService: DeepLinkServiceProtocol {
                     print("✅ [DeepLink] Valid key3 detected - proceeding with key3 flow")
                 case .unknown:
                     print("⚠️ [DeepLink] Unknown key value: \(params.deepLinkValue)")
+                case .on_1:
+                    print("✅ [DeepLink] Valid key3 detected - proceeding with on_1 flow")
                 }
                 
                 setDeepLinkValueWithDelay(
