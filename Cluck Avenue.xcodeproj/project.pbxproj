@@ -165,6 +165,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Cluck Avenue/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Cluck Avenue";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "We use your data to understand ad performance and deliver ads that match your interests. Allowing tracking helps enhance your experience.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -204,6 +205,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Cluck Avenue/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Cluck Avenue";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "We use your data to understand ad performance and deliver ads that match your interests. Allowing tracking helps enhance your experience.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

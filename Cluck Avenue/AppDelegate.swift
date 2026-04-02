@@ -3,6 +3,7 @@ import FirebaseCore
 import SwiftUI
 import FirebaseRemoteConfig
 import AppsFlyerLib
+import AppTrackingTransparency
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,6 +15,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let window = UIWindow(frame: UIScreen.main.bounds)
         FirebaseApp.configure()
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didBecomeActiveNotification),
+            name: UIApplication.didBecomeActiveNotification,
+            object: nil
+        )
         
         let rootView = RootView()
             .environmentObject(store)
@@ -74,6 +82,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      didReceiveRemoteNotification userInfo: [AnyHashable: Any],
                      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         appsFlyerService.application(application, didReceiveRemoteNotification: userInfo, fetchCompletionHandler: completionHandler)
+    }
+    
+    @objc func didBecomeActiveNotification() {
+        AppsFlyerLib.shared().start()
+        if #available(iOS 14, *) {
+            ATTrackingManager.requestTrackingAuthorization { (status) in
+                switch status {
+                case .denied:
+                    print("⚠️ [ATT] AuthorizationStatus is denied")
+                case .notDetermined:
+                    print("⚠️ [ATT] AuthorizationStatus is notDetermined")
+                case .restricted:
+                    print("⚠️ [ATT] AuthorizationStatus is restricted")
+                case .authorized:
+                    print("✅ [ATT] AuthorizationStatus is authorized")
+                @unknown default:
+                    fatalError("Invalid authorization status")
+                }
+            }
+        }
     }
 }
 
