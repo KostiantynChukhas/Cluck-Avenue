@@ -14,17 +14,29 @@ final class AttributionManager: ObservableObject {
     private init() {}
     
     func loadCached() {
+        // Проверяем, есть ли уже сохраненная атрибуция
         let cached = UserDefaults.standard.bool(forKey: kAttributionCheckedKey)
         if cached {
+            // Если данные уже были сохранены ранее - используем только их
             self.isNonOrganic = UserDefaults.standard.bool(forKey: kIsNonOrganicKey)
             self.attributionChecked = true
-            print("📱 [AttributionManager] Loaded from cache: \(self.isNonOrganic ? "non-organic" : "organic")")
+            print("📱 [AttributionManager] Loaded from cache (permanent): \(self.isNonOrganic ? "non-organic" : "organic")")
+        } else {
+            print("📱 [AttributionManager] No cache found - first session, will process attribution")
         }
     }
     
     func handle(_ attribution: AttributionInfo) {
+        // Проверяем, есть ли уже сохраненная атрибуция в кеше
+        let alreadySaved = UserDefaults.standard.bool(forKey: kAttributionCheckedKey)
+        
+        if alreadySaved {
+            print("📱 [AttributionManager] Attribution already saved permanently, skipping new attribution")
+            return
+        }
+        
         guard !attributionChecked else {
-            print("📱 [AttributionManager] Already handled, skipping")
+            print("📱 [AttributionManager] Already handled in current session, skipping")
             return
         }
         
@@ -52,9 +64,9 @@ final class AttributionManager: ObservableObject {
             }
         }
         
-        print("📱 [AttributionManager] Result: \(nonOrganic ? "non-organic" : "organic")")
+        print("📱 [AttributionManager] Result: \(nonOrganic ? "non-organic" : "organic") - SAVING PERMANENTLY")
         
-        // Сохраняем в кеш
+        // Сохраняем в кеш ОДИН РАЗ И НАВСЕГДА
         UserDefaults.standard.set(true, forKey: kAttributionCheckedKey)
         UserDefaults.standard.set(nonOrganic, forKey: kIsNonOrganicKey)
         

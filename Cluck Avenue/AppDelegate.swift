@@ -34,9 +34,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             AttributionManager.shared.handle(attribution)
         }
         
-        #if DEBUG
-        processDebugDeepLinkIfNeeded()
-        #endif
+//        #if DEBUG
+//        processDebugDeepLinkIfNeeded()
+//        #endif
         
         return true
     }
@@ -79,60 +79,60 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 // MARK: - Debug
 
-#if DEBUG
-extension AppDelegate {
-    private func processDebugDeepLinkIfNeeded() {
-        let args = CommandLine.arguments
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            if args.contains("--test-on_1") {
-                self.triggerDebugAttribution(key: "on_1")
-            } else if args.contains("--test-key1") {
-                self.triggerDebugAttribution(key: "key1")
-            } else if args.contains("--test-key2") {
-                self.triggerDebugAttribution(key: "key2")
-            } else if args.contains("--test-key3") {
-                self.triggerDebugAttribution(key: "key3")
-            } else if args.contains("--test-organic") {
-                self.triggerDebugOrganic()
-            } else if args.contains("--reset-attribution") {
-                AttributionManager.shared.reset()
-                print("🧪 [DEBUG] Attribution cache cleared")
-            }
-        }
-    }
-    
-    private func triggerDebugAttribution(key: String) {
-        print("🧪 [DEBUG] Simulating non-organic: \(key)")
-        let params = DeepLinkParameters(
-            deepLinkValue: key,
-            afSub1: "test_type1",
-            afAdset: "test_type2",
-            deepLinkSub1: "test_referrer_\(key)",
-            pid: "test_campaign",
-            isDeferred: false
-        )
-        let info = AttributionInfo(
-            type: .appsflyer,
-            value: key,
-            attribution: ["af_status": "Non-organic"],
-            deepLinkParams: params
-        )
-        AttributionManager.shared.handle(info)
-    }
-    
-    private func triggerDebugOrganic() {
-        print("🧪 [DEBUG] Simulating organic user")
-        let info = AttributionInfo(
-            type: .appsflyer,
-            value: "",
-            attribution: ["af_status": "Organic"],
-            deepLinkParams: nil
-        )
-        AttributionManager.shared.handle(info)
-    }
-}
-#endif
+//#if DEBUG
+//extension AppDelegate {
+//    private func processDebugDeepLinkIfNeeded() {
+//        let args = CommandLine.arguments
+//        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+//            if args.contains("--test-on_1") {
+//                self.triggerDebugAttribution(key: "on_1")
+//            } else if args.contains("--test-key1") {
+//                self.triggerDebugAttribution(key: "key1")
+//            } else if args.contains("--test-key2") {
+//                self.triggerDebugAttribution(key: "key2")
+//            } else if args.contains("--test-key3") {
+//                self.triggerDebugAttribution(key: "key3")
+//            } else if args.contains("--test-organic") {
+//                self.triggerDebugOrganic()
+//            } else if args.contains("--reset-attribution") {
+//                AttributionManager.shared.reset()
+//                print("🧪 [DEBUG] Attribution cache cleared")
+//            }
+//        }
+//    }
+//    
+//    private func triggerDebugAttribution(key: String) {
+//        print("🧪 [DEBUG] Simulating non-organic: \(key)")
+//        let params = DeepLinkParameters(
+//            deepLinkValue: key,
+//            afSub1: "test_type1",
+//            afAdset: "test_type2",
+//            deepLinkSub1: "test_referrer_\(key)",
+//            pid: "test_campaign",
+//            isDeferred: false
+//        )
+//        let info = AttributionInfo(
+//            type: .appsflyer,
+//            value: key,
+//            attribution: ["af_status": "Non-organic"],
+//            deepLinkParams: params
+//        )
+//        AttributionManager.shared.handle(info)
+//    }
+//    
+//    private func triggerDebugOrganic() {
+//        print("🧪 [DEBUG] Simulating organic user")
+//        let info = AttributionInfo(
+//            type: .appsflyer,
+//            value: "",
+//            attribution: ["af_status": "Organic"],
+//            deepLinkParams: nil
+//        )
+//        AttributionManager.shared.handle(info)
+//    }
+//}
+//#endif
 
 // MARK: - RootView
 
